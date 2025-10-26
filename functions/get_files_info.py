@@ -2,12 +2,6 @@ import os
 from google.genai import types
 
 def get_files_info(working_directory, directory="."):
-    """
-    Lista o conteúdo de um diretório de forma segura, permanecendo 
-    dentro do 'working_directory' (o "jail").
-
-    Sempre retorna uma string: ou a lista formatada ou uma mensagem de erro.
-    """
     try:
         # 1. VALIDAÇÃO DE SEGURANÇA (O "JAIL")
         jail_path = os.path.abspath(working_directory)
@@ -39,7 +33,6 @@ def get_files_info(working_directory, directory="."):
     except Exception as e:
         return f"Error: An unexpected error occurred. {str(e)}"
 
-# --- Schema (Declaração da Função para a IA) ---
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
     description="Lists files in the specified directory along with their sizes, constrained to the working directory.",
@@ -52,4 +45,5 @@ schema_get_files_info = types.FunctionDeclaration(
             ),
         },
     ),
+
 )
