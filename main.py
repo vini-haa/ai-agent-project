@@ -113,9 +113,7 @@ def call_function(function_call_part, verbose=False):
             ],
         )
 
-# -----------------------------------------------------------------
-# --- NOVA LÓGICA DO AGENTE (LOOP PRINCIPAL) ---
-# -----------------------------------------------------------------
+# --- NOVA LÓGICA DO AGENTE (LOOP PRINCIPAL) 
 def run_agent_loop(user_prompt, is_verbose=False):
     """
     Executa o loop do agente de IA, gerenciando o histórico
@@ -144,8 +142,6 @@ def run_agent_loop(user_prompt, is_verbose=False):
             )
             
             # 4. Adiciona a resposta da IA (plano ou texto) ao histórico
-            # (A tarefa pedia para iterar nos 'candidates',
-            # mas vamos pegar o primeiro e melhor)
             if not response.candidates:
                 print("Error: A IA não forneceu resposta.")
                 break
@@ -164,10 +160,7 @@ def run_agent_loop(user_prompt, is_verbose=False):
             tool_call_results = []
             
             for function_call_part in response.function_calls:
-                # Executa a função e obtém o resultado (types.Content)
                 function_call_result = call_function(function_call_part, is_verbose)
-                
-                # Adiciona o resultado à lista
                 tool_call_results.append(function_call_result)
                 
                 if is_verbose:
@@ -177,13 +170,11 @@ def run_agent_loop(user_prompt, is_verbose=False):
                         print("-> Error: Could not parse function result.")
             
             # 7. Adiciona os resultados das ferramentas ao histórico
-            # (A tarefa pedia para converter para 'role="user"', mas 'role="tool"'
-            # é o correto para o Gemini e é o que 'call_function' retorna)
             for tool_result in tool_call_results:
                 messages.append(tool_result)
 
         # 8. Se o loop terminar por limite de iterações
-        else: # Este 'else' pertence ao 'for'
+        else: 
             print("\nError: Limite máximo de 20 iterações atingido.")
 
     except Exception as e:
@@ -194,7 +185,6 @@ def run_agent_loop(user_prompt, is_verbose=False):
     # Impressão final de tokens (se verbose)
     if is_verbose:
         try:
-            # (Nota: 'response' aqui é a *última* resposta da IA)
             prompt_tokens = response.usage_metadata.prompt_token_count
             response_tokens = response.usage_metadata.candidates_token_count
             print(f"\nPrompt tokens (last call): {prompt_tokens}")
@@ -202,11 +192,8 @@ def run_agent_loop(user_prompt, is_verbose=False):
         except (AttributeError, ValueError):
             print("\nToken usage metadata not available.")
 
-# -----------------------------------------------------------------
-# --- Bloco de Execução Principal ---
-# -----------------------------------------------------------------
+# --- Bloco de Execução Principal 
 def main():
-    # Configuração do Argparse (movido para dentro do main)
     parser = argparse.ArgumentParser(description="Agente de IA Gemini")
     parser.add_argument(
         "prompt",
