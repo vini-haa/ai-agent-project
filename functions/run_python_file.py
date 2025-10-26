@@ -4,11 +4,6 @@ import subprocess
 from google.genai import types
 
 def run_python_file(working_directory, file_path, args=[]):
-    """
-    Executa um arquivo Python de forma segura dentro do 'working_directory'.
-    
-    Retorna uma string formatada com a saída do processo ou uma mensagem de erro.
-    """
     try:
         # 1. VALIDAÇÃO DE SEGURANÇA (O "JAIL")
         jail_path = os.path.abspath(working_directory)
@@ -81,4 +76,5 @@ schema_run_python_file = types.FunctionDeclaration(
         },
         required=["file_path"]
     ),
+
 )
