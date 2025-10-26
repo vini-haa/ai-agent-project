@@ -2,12 +2,6 @@ import os
 from google.genai import types
 
 def write_file(working_directory, file_path, content):
-    """
-    Escreve 'content' em 'file_path' de forma segura,
-    permanecendo dentro do 'working_directory'.
-    Cria diretórios pais se não existirem.
-    Sempre retorna uma string de status ou erro.
-    """
     try:
         # 1. VALIDAÇÃO DE SEGURANÇA (O "JAIL")
         jail_path = os.path.abspath(working_directory)
@@ -52,4 +46,5 @@ schema_write_file = types.FunctionDeclaration(
         },
         required=["file_path", "content"]
     ),
+
 )
