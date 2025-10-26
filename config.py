@@ -1,0 +1,2 @@
+# config.py
+FILE_CONTENT_MAX_CHARS = 10000
